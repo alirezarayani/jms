@@ -58,4 +58,16 @@ public class Employee implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", designation='" + designation + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }
