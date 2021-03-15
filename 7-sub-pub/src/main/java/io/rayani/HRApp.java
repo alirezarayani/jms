@@ -19,7 +19,7 @@ public class HRApp {
             //initial employee
             Employee employee = new Employee();
             employee.setId(123);
-            employee.setLastName("Alireza");
+            employee.setFirstName("Alireza");
             employee.setLastName("Rayani");
             employee.setEmail("Alireza.rayani@gmail.com");
             employee.setDesignation("Software Architect");
