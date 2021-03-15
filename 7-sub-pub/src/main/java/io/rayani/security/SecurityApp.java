@@ -13,11 +13,19 @@ public class SecurityApp {
         Topic topic = (Topic) initialContext.lookup("topic/myTopic");
         try (ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory();
              JMSContext jmsContext = cf.createContext()) {
-            JMSConsumer consumer = jmsContext.createConsumer(topic);
+            jmsContext.setClientID("securityApp");
+            JMSConsumer consumer = jmsContext.createDurableConsumer(topic, "subscription1");
+            consumer.close();
+//            JMSConsumer consumer = jmsContext.createConsumer(topic);
+            Thread.sleep(10000);
+            consumer = jmsContext.createDurableConsumer(topic, "subscription1");
             Message message = consumer.receive();
             Employee employee = message.getBody(Employee.class);
-            System.out.println(String.format("This is a employee in security consumer: \\n %s",employee));
-        } catch (JMSException e) {
+            System.out.println(String.format("This is a employee in security consumer: \\n %s", employee));
+            jmsContext.unsubscribe("subscription1");
+            consumer.close();
+            cf.close();
+        } catch (JMSException | InterruptedException e) {
             e.printStackTrace();
         }
     }
